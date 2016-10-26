@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Register";
+}
+@model Dashboard.Models.User
+
+<form asp-controller="Home" asp-action="Create" method="post" class="col-md-6 col-md-offset-3">
+   <h1 class="col-md-8 col-md-offset-2 title">Register</h1>
+   <div class="form-group">
+      <label for="email">Email Address:</label>
+      <input type="email" class="form-control" id="email" placeholder="Email" asp-for="email">
+   </div>
+   <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input type="text" class="form-control" id="first_name" placeholder="First Name" asp-for="first_name">
+   </div>
+   <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input type="text" class="form-control" id="last_name" placeholder="Last Name" asp-for="last_name">
+   </div>
+   <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" asp-for="password">
+   </div>
+   <div class="form-group">
+      <label for="confirm">Password Confirmation:</label>
+      <input type="password" class="form-control" id="confirm" placeholder="Confirmation" asp-for="confirm">
+   </div>
+   <button type="submit" class="btn btn-success col-md-8 col-md-offset-2">Register</button>
+</form>

@@ -1,0 +1,5 @@
+# Ignore files and folders
+
+/obj/*
+/bin/*
+/appsettings.json

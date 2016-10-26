@@ -1,0 +1,12 @@
+/*Write all of your CSS here*/
+body { 
+   padding-top: 70px; 
+}
+
+.title {
+   text-align: center;
+}
+
+.add {
+   margin-top: 20px;
+}
