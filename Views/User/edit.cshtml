@@ -1,13 +1,12 @@
 @{
-    ViewData["Title"] = "Edit User";
+    ViewData["Title"] = "Edit Profile";
 }
 @model Dashboard.Models.User
 
 <div class="row">
-   <h1 class="col-md-4 col-md-offset-1">Edit user #[user_id]</h1>
-   <a class="btn btn-primary btn-lg col-md-offset-4 links" href="/dashboard" role="button">Return to Dashboard</a>
+   <h1 class="col-md-4 col-md-offset-1">Edit profile</h1>
 </div>
-<form asp-controller="Admin" asp-action="Update" method="post" class="col-md-10 col-md-offset-1" class="edit">
+<form asp-controller="Admin" asp-action="Update" method="post" class="col-md-10 col-md-offset-1 edit">
    <div class="col-md-5 edit_panels">
       <h3>Edit Information</h3>
       <div class="form-group">
@@ -21,14 +20,7 @@
       <div class="form-group">
          <label for="last_name">Last Name:</label>
          <input type="text" class="form-control" id="last_name" placeholder="Last Name" asp-for="last_name">
-      </div>
-      <div class="form-group">
-         <label for="user_level">User Level:</label>
-         <select class="form-control" id="user_level" asp-for="user_level">
-            <option value="0">Normal</option>
-            <option value="9">Admin</option>
-         </select>
-      </div>
+      </div>   
       <button type="submit" class="btn btn-success col-md-2 col-md-offset-10 edit_btns">Save</button>
    </div>
    <div class="col-md-5 col-md-offset-1 edit_panels">
@@ -42,5 +34,12 @@
          <input type="password" class="form-control" id="confirm" placeholder="Confirmation" asp-for="confirm">
       </div>
       <button type="submit" class="btn btn-success col-md-5 col-md-offset-7 edit_btns">Update Password</button>
+   </div>
+   <div class="col-md-11 edit_panels edit">
+      <h3>Edit Description</h3>
+      <div class="form-group">
+            <textarea class="form-control" rows="3" asp-for="description"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success col-md-2 col-md-offset-10 edit_btns">Save</button>
    </div>
 </form>

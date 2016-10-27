@@ -10,7 +10,7 @@ namespace Dashboard.Controllers
     public class AdminController : Controller
     {
         [HttpGet]
-        [Route("dashboard")]
+        [Route("dashboard/admin")]
         public IActionResult Dashboard() {
             ViewBag.loggedin = true;
             return View();

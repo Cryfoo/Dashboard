@@ -28,6 +28,8 @@ namespace Dashboard.Models
         public string confirm { get; set; }
 
         public int user_level { get; set; }
+
+        public string description { get; set; }
         
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
