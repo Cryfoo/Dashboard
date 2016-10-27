@@ -15,6 +15,28 @@ namespace Dashboard.Controllers
             ViewBag.loggedin = true;
             return View();
         }
+
+        [HttpGet]
+        [Route("users/new")]
+        public IActionResult New() {
+            ViewBag.loggedin = true;
+            return View();
+        }
+
+        [HttpGet]
+        [Route("users/show/1")]
+        public IActionResult Show() {
+           ViewBag.loggedin = true;
+           return View();
+        }
+
+        [HttpGet]
+        [Route("users/edit/1")]
+        public IActionResult Edit() {
+           ViewBag.loggedin = true;
+           return View();
+        }
+
         [HttpGet]
         [Route("logout")]
         public IActionResult Logout() {

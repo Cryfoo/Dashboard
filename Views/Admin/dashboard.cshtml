@@ -1,10 +1,13 @@
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
+@model IEnumerable<Dashboard.Models.User>
+
 <div class="row">
    <h1 class="col-md-3">Manage Users</h1>
-   <a class="btn btn-primary btn-lg col-md-offset-6 add" href="/users/new" role="button">Add New</a>
+   <a class="btn btn-primary btn-lg col-md-offset-6 links" href="/users/new" role="button">Add New</a>
 </div>
+<a class="btn btn-primary btn-lg col-md-offset-6 links" href="/users/edit/1" role="button">Edit Temp Link</a>
 <div class="row">
    <table class="table table-hover">
       <thead>

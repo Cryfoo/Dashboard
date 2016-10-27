@@ -3,10 +3,14 @@ body {
    padding-top: 70px; 
 }
 
-.title {
-   text-align: center;
+.links, #edit {
+   margin-top: 20px;
 }
 
-.add {
-   margin-top: 20px;
+.edit_panels {
+   outline: 1px solid black;
+}
+
+.edit_btns {
+   margin-bottom: 20px;
 }

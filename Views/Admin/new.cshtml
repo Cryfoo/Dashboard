@@ -1,10 +1,13 @@
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "New User";
 }
 @model Dashboard.Models.User
 
+<div class="row">
+   <h1 class="col-md-3 col-md-offset-3">Add a new user</h1>
+   <a class="btn btn-primary btn-lg col-md-offset-3 links" href="/dashboard" role="button">Return to Dashboard</a>
+</div>
 <form asp-controller="Home" asp-action="Create" method="post" class="col-md-6 col-md-offset-3">
-   <h1 class="col-md-8 col-md-offset-2 title text-center">Register</h1>
    <div class="form-group">
       <label for="email">Email Address:</label>
       <input type="email" class="form-control" id="email" placeholder="Email" asp-for="email">
@@ -25,5 +28,5 @@
       <label for="confirm">Password Confirmation:</label>
       <input type="password" class="form-control" id="confirm" placeholder="Confirmation" asp-for="confirm">
    </div>
-   <button type="submit" class="btn btn-success col-md-8 col-md-offset-2">Register</button>
+   <button type="submit" class="btn btn-success col-md-8 col-md-offset-2">Create</button>
 </form>
