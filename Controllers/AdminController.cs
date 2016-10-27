@@ -36,11 +36,5 @@ namespace Dashboard.Controllers
            ViewBag.loggedin = true;
            return View();
         }
-
-        [HttpGet]
-        [Route("logout")]
-        public IActionResult Logout() {
-           return RedirectToAction("Index", "Home");
-        }
     }
 }

@@ -4,22 +4,19 @@ using System.Collections.Generic;
 
 namespace Dashboard.Models
 {
-    public class Message : BaseEntity
+    public class Comment : BaseEntity
     {
-        public Message() {
-            comments = new List<Comment>();
-        }
-
-        public ICollection<Comment> comments { get; set; }
-
         [Key]
         public long id { get; set; }
 
         [Required]
-        public string message { get; set; }
+        public string comment { get; set; }
 
         public int user_id { get; set; }
         public User user { get; set; }
+
+        public int message_id { get; set; }
+        public Message message { get; set; }
 
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }

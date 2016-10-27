@@ -28,7 +28,6 @@ namespace Dashboard
             // Add framework services.
             services.AddMvc();
             services.AddSession();
-            Console.WriteLine(Configuration["DBInfo:ConnectionString"]);
             services.AddDbContext<MyContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
         }
 

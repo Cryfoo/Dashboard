@@ -3,27 +3,87 @@
 }
 @model Dashboard.Models.User
 
+<script>
+    $(document).ready(function() {
+       $('#register').addClass("active");
+        if ($('span[data-valmsg-for="email"]').text() == "") {
+            $('#email_alert').hide();
+        } else {
+            $('#email_group').addClass("has-error");
+        }
+        if ($('#invalid_email').text() != "") {
+            $('#email_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="first_name"]').text() == "") {
+            $('#first_alert').hide();
+        } else {
+            $('#first_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="last_name"]').text() == "") {
+            $('#last_alert').hide();
+        } else {
+            $('#last_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="password"]').text() == "") {
+            $('#password_alert').hide();
+        } else {
+            $('#password_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="confirm"]').text() == "") {
+            $('#confirm_alert').hide();
+        } else {
+            $('#confirm_group').addClass("has-error");
+        }
+    });
+</script>
+
+<h1 class="col-md-8 col-md-offset-2 title text-center">Register</h1>
 <form asp-controller="Home" asp-action="Create" method="post" class="col-md-6 col-md-offset-3">
-   <h1 class="col-md-8 col-md-offset-2 title text-center">Register</h1>
-   <div class="form-group">
+   <div class="form-group" id="email_group">
       <label for="email">Email Address:</label>
       <input type="email" class="form-control" id="email" placeholder="Email" asp-for="email">
+      <div class="alert alert-danger" role="alert" id="email_alert">
+         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+         <span asp-validation-for="email"></span>
+      </div>
+      @if (ViewBag.invalidEmail) {
+         <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span id="invalid_email">Email already exists.</span>
+         </div>
+      }
    </div>
-   <div class="form-group">
+   <div class="form-group" id="first_group">
       <label for="first_name">First Name:</label>
       <input type="text" class="form-control" id="first_name" placeholder="First Name" asp-for="first_name">
+      <div class="alert alert-danger" role="alert" id="first_alert">
+         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+         <span asp-validation-for="first_name"></span>
+      </div>
    </div>
-   <div class="form-group">
+   <div class="form-group" id="last_group">
       <label for="last_name">Last Name:</label>
       <input type="text" class="form-control" id="last_name" placeholder="Last Name" asp-for="last_name">
+      <div class="alert alert-danger" role="alert" id="last_alert">
+         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+         <span asp-validation-for="last_name"></span>
+      </div>
    </div>
-   <div class="form-group">
+   <div class="form-group" id="password_group">
       <label for="password">Password:</label>
       <input type="password" class="form-control" id="password" placeholder="Password" asp-for="password">
+      <div class="alert alert-danger" role="alert" id="password_alert">
+         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+         <span asp-validation-for="password"></span>
+      </div>
    </div>
-   <div class="form-group">
+   <div class="form-group" id="confirm_group">
       <label for="confirm">Password Confirmation:</label>
       <input type="password" class="form-control" id="confirm" placeholder="Confirmation" asp-for="confirm">
+      <div class="alert alert-danger" role="alert" id="confirm_alert">
+         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+         <span asp-validation-for="confirm"></span>
+      </div>
    </div>
    <button type="submit" class="btn btn-success col-md-8 col-md-offset-2">Register</button>
 </form>
