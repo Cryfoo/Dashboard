@@ -93,12 +93,12 @@ namespace Dashboard.Controllers
         [HttpPost]
         [Route("create")]
         public IActionResult Create(User user) {
-            var newUser = _context.Users.Where(u => u.email == user.email);
+            var sameEmail = _context.Users.Where(u => u.email == user.email);
             ViewBag.invalidEmail = false;
-            if (newUser.Count() != 0) {
+            if (sameEmail.Count() != 0) {
                 ViewBag.invalidEmail = true;
             }
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid && sameEmail.Count() == 0) {
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 user.password = Hasher.HashPassword(user, user.password);
                 user.confirm = user.password;

@@ -3,24 +3,76 @@
 }
 @model Dashboard.Models.User
 
+<script>
+    $(document).ready(function() {
+       $('#register').addClass("active");
+        if ($('span[data-valmsg-for="email"]').text() == "") {
+            $('#email_alert').hide();
+        } else {
+            $('#email_group').addClass("has-error");
+        }
+        if ($('#invalid_email').text() != "") {
+            $('#email_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="first_name"]').text() == "") {
+            $('#first_alert').hide();
+        } else {
+            $('#first_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="last_name"]').text() == "") {
+            $('#last_alert').hide();
+        } else {
+            $('#last_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="password"]').text() == "") {
+            $('#password_alert').hide();
+        } else {
+            $('#password_group').addClass("has-error");
+        }
+        if ($('span[data-valmsg-for="confirm"]').text() == "") {
+            $('#confirm_alert').hide();
+        } else {
+            $('#confirm_group').addClass("has-error");
+        }
+    });
+</script>
+
 <div class="row">
-   <h1 class="col-md-4 col-md-offset-1">Edit user #[user_id]</h1>
+   <h1 class="col-md-4 col-md-offset-1">Edit user #@Model.id</h1>
    <a class="btn btn-primary btn-lg col-md-offset-4 links" href="/dashboard" role="button">Return to Dashboard</a>
 </div>
-<form asp-controller="Admin" asp-action="Update" method="post" class="col-md-10 col-md-offset-1 edit">
-   <div class="col-md-5 edit_panels">
+<div class="col-md-10 col-md-offset-1 edit">
+   <form asp-controller="Admin" asp-action="UpdateInfo" method="post" class="col-md-5 edit_panels">
       <h3>Edit Information</h3>
       <div class="form-group">
          <label for="email">Email Address:</label>
          <input type="email" class="form-control" id="email" placeholder="Email" asp-for="email">
+         <div class="alert alert-danger" role="alert" id="email_alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span asp-validation-for="email"></span>
+         </div>
+         @if (ViewBag.invalidEmail) {
+            <div class="alert alert-danger" role="alert">
+               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+               <span id="invalid_email">Email already exists.</span>
+            </div>
+         }
       </div>
       <div class="form-group">
          <label for="first_name">First Name:</label>
          <input type="text" class="form-control" id="first_name" placeholder="First Name" asp-for="first_name">
+         <div class="alert alert-danger" role="alert" id="first_alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span asp-validation-for="first_name"></span>
+         </div>
       </div>
       <div class="form-group">
          <label for="last_name">Last Name:</label>
          <input type="text" class="form-control" id="last_name" placeholder="Last Name" asp-for="last_name">
+         <div class="alert alert-danger" role="alert" id="last_alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span asp-validation-for="last_name"></span>
+         </div>
       </div>
       <div class="form-group">
          <label for="user_level">User Level:</label>
@@ -29,18 +81,29 @@
             <option value="9">Admin</option>
          </select>
       </div>
+      <input type="hidden" asp-for="password" value="dummyPassword">
+      <input type="hidden" asp-for="confirm" value="dummyPassword">
       <button type="submit" class="btn btn-success col-md-2 col-md-offset-10 edit_btns">Save</button>
-   </div>
-   <div class="col-md-5 col-md-offset-1 edit_panels">
+   </form>
+   <form asp-controller="Admin" asp-action="UpdatePwd" method="post" class="col-md-5 col-md-offset-1 edit_panels">
       <h3>Change Password</h3>
       <div class="form-group">
          <label for="password">Password:</label>
          <input type="password" class="form-control" id="password" placeholder="Password" asp-for="password">
+         <div class="alert alert-danger" role="alert" id="password_alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span asp-validation-for="password"></span>
+         </div>
       </div>
       <div class="form-group">
          <label for="confirm">Password Confirmation:</label>
          <input type="password" class="form-control" id="confirm" placeholder="Confirmation" asp-for="confirm">
+         <div class="alert alert-danger" role="alert" id="confirm_alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span asp-validation-for="confirm"></span>
+         </div>
       </div>
       <button type="submit" class="btn btn-success col-md-5 col-md-offset-7 edit_btns">Update Password</button>
-   </div>
-</form>
+   </form>
+</div>
+  

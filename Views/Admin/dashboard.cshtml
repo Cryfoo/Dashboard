@@ -3,22 +3,47 @@
 }
 @model IEnumerable<Dashboard.Models.User>
 
+<script>
+   $(document).ready(function() {
+      $('#dashboard').addClass("active");
+   });
+</script>
+
 <div class="row">
    <h1 class="col-md-3">Manage Users</h1>
    <a class="btn btn-primary btn-lg col-md-offset-6 links" href="/users/new" role="button">Add New</a>
 </div>
-<a class="btn btn-primary btn-lg col-md-offset-6 links" href="/users/edit/1" role="button">Edit Temp Link</a>
-<div class="row">
-   <table class="table table-hover">
-      <thead>
-         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Created At</th>
-            <th>User Level</th>
-            <th>Action</th>
-         </tr>
-      </thead>
-   </table>
+<div class="row users_list">
+   @if (Model.Count() > 0) {
+   <div class="col-md-11">
+      <table class="table table-hover">
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>Name</th>
+               <th>Email</th>
+               <th>Created At</th>
+               <th>User Level</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            @foreach (var user in Model) {
+               <tr>
+                  <th>@user.id</th>
+                  <th><a href="/users/show/@user.id">@user.first_name @user.last_name</a></th>
+                  <th>@user.email</th>
+                  <th>@user.created_at</th>
+                  @if (user.user_level == 9) {
+                     <th>admin</th>
+                  } else {
+                     <th>normal</th>
+                  }
+                  <th><a href="/users/edit/@user.id" id="edit_link">edit</a><a href="/users/@user.id">remove</a></th>
+               </tr>
+            }
+         </tbody>
+      </table>
+   </div>
+   }
 </div>

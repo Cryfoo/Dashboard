@@ -39,5 +39,13 @@ namespace Dashboard.Controllers
            ViewBag.loggedin = true;
            return View();
         }
+
+        [HttpGet]
+        [Route("users/show/{id}")]
+        public IActionResult Show(int id) {
+            ViewBag.loggedin = true;
+            ViewBag.user = _context.Users.SingleOrDefault(u => u.id == id);
+            return View();
+        }
     }
 }

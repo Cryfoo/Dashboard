@@ -18,3 +18,11 @@ body {
 .alert {
    margin-top: 5px;
 }
+
+.users_list {
+   margin-top: 20px;
+}
+
+#edit_link {
+   margin-right: 15px;
+}
