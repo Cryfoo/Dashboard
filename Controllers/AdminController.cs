@@ -64,9 +64,11 @@ namespace Dashboard.Controllers
                 user.password = Hasher.HashPassword(user, user.password);
                 user.confirm = user.password;
                 user.user_level = 0;
+                user.created_at = DateTime.Now;
+                user.updated_at = DateTime.Now;
                 _context.Users.Add(user);
                 _context.SaveChanges();
-                return RedirectToAction("Dashboard", "Admin");
+                return RedirectToAction("Dashboard");
             } else {
                 ViewBag.loggedin = true;
                 return View("New", user);
@@ -105,8 +107,9 @@ namespace Dashboard.Controllers
                 oldUser.first_name = user.first_name;
                 oldUser.last_name = user.last_name;
                 oldUser.user_level = user.user_level;
+                oldUser.updated_at = DateTime.Now;
                 _context.SaveChanges();
-                return RedirectToAction("Dashboard", "Admin");
+                return RedirectToAction("Dashboard");
             } else {
                 ViewBag.loggedin = true;
                 return View("Edit", user);
@@ -132,12 +135,31 @@ namespace Dashboard.Controllers
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 oldUser.password = Hasher.HashPassword(user, user.password);
                 oldUser.confirm = oldUser.password;
+                oldUser.updated_at = DateTime.Now;
                 _context.SaveChanges();
-                return RedirectToAction("Dashboard", "Admin");
+                return RedirectToAction("Dashboard");
             } else {
                 ViewBag.loggedin = true;
                 return View("Edit", user);
             }
+        }
+
+        [HttpGet]
+        [Route("users/{delete_id}")]
+        public IActionResult Delete(int delete_id) {
+            if (HttpContext.Session.GetInt32("id") != null) {
+                int id = (int)HttpContext.Session.GetInt32("id");
+                var user = _context.Users.SingleOrDefault(u => u.id == id);
+                if (user.user_level != 9) {
+                    return RedirectToAction("Dashboard", "User");
+                }
+            } else {
+                return RedirectToAction("Index", "Home");
+            }
+            var deleteUser = _context.Users.SingleOrDefault(u => u.id == delete_id);
+            _context.Users.Remove(deleteUser);
+            _context.SaveChanges();
+            return RedirectToAction("Dashboard");
         }
     }
 }

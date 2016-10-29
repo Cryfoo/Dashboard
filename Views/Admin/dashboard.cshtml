@@ -3,9 +3,18 @@
 }
 @model IEnumerable<Dashboard.Models.User>
 
+<script src="~/lib/bootstrap/js/modal.js"></script>
 <script>
    $(document).ready(function() {
       $('#dashboard').addClass("active");
+      $('#deleteConfirm').on('show.bs.modal', function (event) {
+         var button = $(event.relatedTarget)
+         var id = button.data('id')
+         var name = button.data('name')
+         var modal = $(this)
+         modal.find('.modal-body p').text("Are you sure about removing " + name + "?")
+         modal.find('.modal-footer a').attr("href", "/users/" + id)
+      })
    });
 </script>
 
@@ -39,7 +48,25 @@
                   } else {
                      <th>normal</th>
                   }
-                  <th><a href="/users/edit/@user.id" id="edit_link">edit</a><a href="/users/@user.id">remove</a></th>
+                  <th><a href="/users/edit/@user.id" id="edit_link">edit</a><a href="#" data-toggle="modal" data-target="#deleteConfirm" data-id="@user.id" data-name="@user.first_name @user.last_name">remove</a></th>
+                  <!-- Modal -->
+                  <div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmLabel">
+                     <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title">Confirmation</h4>
+                           </div>
+                           <div class="modal-body">
+                              <p></p>
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <a><button type="button" class="btn btn-primary">Remove</button></a>
+                           </div>
+                        </div><!-- /.modal-content -->
+                     </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
                </tr>
             }
          </tbody>

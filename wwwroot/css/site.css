@@ -26,3 +26,11 @@ body {
 #edit_link {
    margin-right: 15px;
 }
+
+.labels, .values {
+   display: inline-block;
+}
+
+.labels {
+   width: 150px;
+}

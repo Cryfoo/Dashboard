@@ -104,6 +104,8 @@ namespace Dashboard.Controllers
                 user.confirm = user.password;
                 if (_context.Users.Count() == 0) {
                     user.user_level = 9;
+                    user.created_at = DateTime.Now;
+                    user.updated_at = DateTime.Now;
                     _context.Users.Add(user);
                     _context.SaveChanges();
                     var userSaved = _context.Users.SingleOrDefault(u => u.email == user.email);
@@ -111,6 +113,8 @@ namespace Dashboard.Controllers
                     return RedirectToAction("Dashboard", "Admin");
                 } else {
                     user.user_level = 0;
+                    user.created_at = DateTime.Now;
+                    user.updated_at = DateTime.Now;
                     _context.Users.Add(user);
                     _context.SaveChanges();
                     var userSaved = _context.Users.SingleOrDefault(u => u.email == user.email);

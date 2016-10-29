@@ -1,23 +1,36 @@
 @{
     ViewData["Title"] = "User Information";
 }
-@model Dashboard.Models.Message
+@model IEnumerable<Dashboard.Models.Message>
 
 <div class="row">
     <div class="col-md-offset-1">
         <h3>@ViewBag.user.first_name @ViewBag.user.last_name</h3>
-        <p>Registered at:</p>
-        <p>User ID:</p>
-        <p>Email Address:</p>
-        <p>Description:</p>
+        <div>
+            <p class="labels">Registered at:</p>
+            <p class="values">@ViewBag.user.created_at</p>
+        </div>
+        <div>
+            <p class="labels">User ID:</p>
+            <p class="values">@ViewBag.user.id</p>
+        </div>
+        <div>
+            <p class="labels">Email Address:</p>
+            <p class="values">@ViewBag.user.email</p>
+        </div>
+        <div>
+            <p class="labels">Description:</p>
+            <p class="values">@ViewBag.user.description</p>
+        </div>
     </div>
 </div>
 <div class="row">
     <form asp-controller="User" asp-action="CreateMessage" method="post" class="col-md-10 col-md-offset-1">
-        <h3>Leave a message for [User Name]</h3>
+        <h3>Leave a message for @ViewBag.user.first_name</h3>
         <div class="form-group">
-            <textarea class="form-control" rows="3" asp-for="message"></textarea>
+            <textarea class="form-control" rows="3" name="msg"></textarea>
         </div>
+        <input type="hidden" name="id" value="@ViewBag.user.id">
         <button type="submit" class="btn btn-success col-md-2 col-md-offset-10">Post</button>
     </form>
 </div>

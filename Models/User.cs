@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 
 namespace Dashboard.Models
@@ -8,9 +9,14 @@ namespace Dashboard.Models
     {
         public User() {
             messages = new List<Message>();
+            message = new List<Message>();
         }
 
+        [InverseProperty("recipient")]
         public ICollection<Message> messages { get; set; }
+
+        [InverseProperty("creator")]
+        public ICollection<Message> message { get; set; }
 
         [Key]
         public long id { get; set; }
