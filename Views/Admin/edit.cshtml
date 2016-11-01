@@ -5,33 +5,28 @@
 
 <script>
     $(document).ready(function() {
-       $('#register').addClass("active");
-        if ($('span[data-valmsg-for="email"]').text() == "") {
-            $('#email_alert').hide();
-        } else {
+        $('#register').addClass("active");
+        if ($('span[data-valmsg-for="email"]').text() != "") {
+            $('#email_alert').removeAttr("hidden");
             $('#email_group').addClass("has-error");
         }
         if ($('#invalid_email').text() != "") {
             $('#email_group').addClass("has-error");
         }
-        if ($('span[data-valmsg-for="first_name"]').text() == "") {
-            $('#first_alert').hide();
-        } else {
+        if ($('span[data-valmsg-for="first_name"]').text() != "") {
+            $('#first_alert').removeAttr("hidden");
             $('#first_group').addClass("has-error");
         }
-        if ($('span[data-valmsg-for="last_name"]').text() == "") {
-            $('#last_alert').hide();
-        } else {
+        if ($('span[data-valmsg-for="last_name"]').text() != "") {
+            $('#last_alert').removeAttr("hidden");
             $('#last_group').addClass("has-error");
         }
-        if ($('span[data-valmsg-for="password"]').text() == "") {
-            $('#password_alert').hide();
-        } else {
+        if ($('span[data-valmsg-for="password"]').text() != "") {
+            $('#password_alert').removeAttr("hidden");
             $('#password_group').addClass("has-error");
         }
-        if ($('span[data-valmsg-for="confirm"]').text() == "") {
-            $('#confirm_alert').hide();
-        } else {
+        if ($('span[data-valmsg-for="confirm"]').text() != "") {
+            $('#confirm_alert').removeAttr("hidden");
             $('#confirm_group').addClass("has-error");
         }
     });
@@ -44,10 +39,10 @@
 <div class="col-md-10 col-md-offset-1 edit">
    <form asp-controller="Admin" asp-action="UpdateInfo" method="post" class="col-md-5 edit_panels">
       <h3>Edit Information</h3>
-      <div class="form-group">
+      <div class="form-group" id="email_group">
          <label for="email">Email Address:</label>
          <input type="email" class="form-control" id="email" placeholder="Email" asp-for="email">
-         <div class="alert alert-danger" role="alert" id="email_alert">
+         <div class="alert alert-danger" role="alert" id="email_alert" hidden>
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span asp-validation-for="email"></span>
          </div>
@@ -58,18 +53,18 @@
             </div>
          }
       </div>
-      <div class="form-group">
+      <div class="form-group" id="first_group">
          <label for="first_name">First Name:</label>
          <input type="text" class="form-control" id="first_name" placeholder="First Name" asp-for="first_name">
-         <div class="alert alert-danger" role="alert" id="first_alert">
+         <div class="alert alert-danger" role="alert" id="first_alert" hidden>
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span asp-validation-for="first_name"></span>
          </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" id="last_group">
          <label for="last_name">Last Name:</label>
          <input type="text" class="form-control" id="last_name" placeholder="Last Name" asp-for="last_name">
-         <div class="alert alert-danger" role="alert" id="last_alert">
+         <div class="alert alert-danger" role="alert" id="last_alert" hidden>
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span asp-validation-for="last_name"></span>
          </div>
@@ -87,18 +82,18 @@
    </form>
    <form asp-controller="Admin" asp-action="UpdatePwd" method="post" class="col-md-5 col-md-offset-1 edit_panels">
       <h3>Change Password</h3>
-      <div class="form-group">
+      <div class="form-group" id="password_group">
          <label for="password">Password:</label>
          <input type="password" class="form-control" id="password" placeholder="Password" asp-for="password">
-         <div class="alert alert-danger" role="alert" id="password_alert">
+         <div class="alert alert-danger" role="alert" id="password_alert" hidden>
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span asp-validation-for="password"></span>
          </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" id="confirm_group">
          <label for="confirm">Password Confirmation:</label>
          <input type="password" class="form-control" id="confirm" placeholder="Confirmation" asp-for="confirm">
-         <div class="alert alert-danger" role="alert" id="confirm_alert">
+         <div class="alert alert-danger" role="alert" id="confirm_alert" hidden>
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span asp-validation-for="confirm"></span>
          </div>

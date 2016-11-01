@@ -2,6 +2,25 @@
     ViewData["Title"] = "User Information";
 }
 @model IEnumerable<Dashboard.Models.Message>
+@using Dashboard.Models;
+
+@functions {
+    public string formatCreatedAt(DateTime time) {
+        DateTime now = DateTime.Now;
+        TimeSpan ts = now - time;
+        if (ts.TotalDays > 7) {
+            return time.ToString("MMMM d yyyy");
+        } else if (ts.TotalDays > 1) {
+            return ts.Days + " days ago";
+        } else if (ts.TotalHours > 1) {
+            return ts.Hours + " hours ago";
+        } else if (ts.TotalMinutes > 1) {
+            return ts.Minutes + " minutes ago";
+        } else {
+            return ts.Seconds + " seconds ago";
+        }
+    }
+}
 
 <div class="row">
     <div class="col-md-offset-1">
@@ -33,4 +52,41 @@
         <input type="hidden" name="id" value="@ViewBag.user.id">
         <button type="submit" class="btn btn-success col-md-2 col-md-offset-10">Post</button>
     </form>
+    @foreach (var msg in Model) {
+        <div class="col-md-10 col-md-offset-1 msg_block">
+            @{
+                string msg_created_at = formatCreatedAt(msg.created_at);
+                List<Comment> comments = msg.comments.OrderBy(c => c.created_at).ToList();
+            }
+            <p>
+                <span class="col-md-2 nametag">
+                    <a href="/users/show/@msg.creator.id">@msg.creator.first_name @msg.creator.last_name</a> wrote
+                </span>
+                <span class="col-md-10 text-right nametag">@msg_created_at</span>
+            </p>
+            <p class="col-md-12 messages" rows="3">@msg.message</p>
+        </div>
+        @foreach (var cmt in comments) {
+            <div class="col-md-9 col-md-offset-2 cmt_block">
+                @{
+                    string cmt_created_at = formatCreatedAt(cmt.created_at);
+                }
+                <p>
+                    <span class="col-md-2 nametag">
+                        <a href="/users/show/@cmt.user.id">@cmt.user.first_name @cmt.user.last_name</a> wrote
+                    </span>
+                    <span class="col-md-10 text-right nametag">@cmt_created_at</span>
+                </p>
+                <p class="col-md-12 messages" rows="3">@cmt.comment</p>
+            </div>
+        }
+        <form asp-controller="User" asp-action="CreateComment" method="post" class="col-md-9 col-md-offset-2">
+            <div class="form-group">
+                <textarea class="form-control" rows="3" name="cmt" placeholder="Write a message"></textarea>
+            </div>
+            <input type="hidden" name="id" value="@ViewBag.user.id">
+            <input type="hidden" name="msg_id" value="@msg.id">
+            <button type="submit" class="btn btn-success col-md-2 col-md-offset-10">Post</button>
+        </form>
+    }
 </div>

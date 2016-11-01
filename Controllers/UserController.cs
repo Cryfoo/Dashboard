@@ -6,6 +6,7 @@ using Dashboard.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dashboard.Controllers
 {
@@ -114,22 +115,48 @@ namespace Dashboard.Controllers
         public IActionResult Show(int id) {
             ViewBag.loggedin = true;
             ViewBag.user = _context.Users.SingleOrDefault(u => u.id == id);
-            return View();
+            List<Message> msg = _context.Messages
+                                        .Include(m => m.creator)
+                                        .Include(m => m.comments)
+                                        .ThenInclude(c => c.user)
+                                        .Where(m => m.recipientId == id)
+                                        .OrderByDescending(m => m.created_at)
+                                        .ToList();
+            return View(msg);
         }
 
         [HttpPost]
         [Route("users/createMsg")]
         public IActionResult CreateMessage(string msg, int id) {
             int current_id = (int)HttpContext.Session.GetInt32("id");
-            var currentUser = _context.Users.SingleOrDefault(u => u.id == current_id);
+            var creator = _context.Users.SingleOrDefault(u => u.id == current_id);
+            var recipient = _context.Users.SingleOrDefault(u => u.id == id);
             Message newMessage = new Message {
                 message = msg,
-                creator.id = (int)currentUser.id,
-                recipient.id = id,
                 created_at = DateTime.Now,
-                updated_at = DateTime.Now
+                updated_at = DateTime.Now,
+                creator = creator,
+                recipient = recipient
             };
             _context.Messages.Add(newMessage);
+            _context.SaveChanges();
+            return RedirectToAction("Show", new {id = id});
+        }
+
+        [HttpPost]
+        [Route("users/createCmt")]
+        public IActionResult CreateComment(string cmt, int id, int msg_id) {
+            int current_id = (int)HttpContext.Session.GetInt32("id");
+            var creator = _context.Users.SingleOrDefault(u => u.id == current_id);
+            var msg = _context.Messages.SingleOrDefault(m => m.id == msg_id);
+            Comment newComment = new Comment {
+                comment = cmt,
+                created_at = DateTime.Now,
+                updated_at = DateTime.Now,
+                user = creator,
+                message = msg
+            };
+            _context.Comments.Add(newComment);
             _context.SaveChanges();
             return RedirectToAction("Show", new {id = id});
         }

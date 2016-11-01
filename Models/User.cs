@@ -9,17 +9,15 @@ namespace Dashboard.Models
     {
         public User() {
             messages = new List<Message>();
-            message = new List<Message>();
         }
 
         [InverseProperty("recipient")]
         public ICollection<Message> messages { get; set; }
 
-        [InverseProperty("creator")]
-        public ICollection<Message> message { get; set; }
+        public Message message { get; set; }
 
         [Key]
-        public long id { get; set; }
+        public int id { get; set; }
 
         [Required(ErrorMessage="The first name field is required.")]
         [MinLength(2)]

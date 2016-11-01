@@ -14,15 +14,15 @@ namespace Dashboard.Models
         public ICollection<Comment> comments { get; set; }
 
         [Key]
-        public long id { get; set; }
+        public int id { get; set; }
 
         [Required]
         public string message { get; set; }
 
-        // public int creatorId { get; set; }
+        public int creatorId { get; set; }
         public User creator { get; set; }
 
-        // public int recipientId { get; set; }
+        public int recipientId { get; set; }
         public User recipient { get; set; }
 
         public DateTime created_at { get; set; }

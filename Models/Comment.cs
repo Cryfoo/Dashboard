@@ -7,7 +7,7 @@ namespace Dashboard.Models
     public class Comment : BaseEntity
     {
         [Key]
-        public long id { get; set; }
+        public int id { get; set; }
 
         [Required]
         public string comment { get; set; }

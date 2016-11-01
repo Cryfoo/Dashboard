@@ -60,7 +60,7 @@ namespace Dashboard.Controllers
             } else {
                 var Hasher = new PasswordHasher<User>();
                 if(0 != Hasher.VerifyHashedPassword(user, user.password, password)) {
-                    HttpContext.Session.SetInt32("id", (int)user.id);
+                    HttpContext.Session.SetInt32("id", user.id);
                     if (user.user_level == 9) {
                         return RedirectToAction("Dashboard", "Admin");
                     } else {
@@ -109,7 +109,7 @@ namespace Dashboard.Controllers
                     _context.Users.Add(user);
                     _context.SaveChanges();
                     var userSaved = _context.Users.SingleOrDefault(u => u.email == user.email);
-                    HttpContext.Session.SetInt32("id", (int)userSaved.id);
+                    HttpContext.Session.SetInt32("id", userSaved.id);
                     return RedirectToAction("Dashboard", "Admin");
                 } else {
                     user.user_level = 0;
@@ -118,7 +118,7 @@ namespace Dashboard.Controllers
                     _context.Users.Add(user);
                     _context.SaveChanges();
                     var userSaved = _context.Users.SingleOrDefault(u => u.email == user.email);
-                    HttpContext.Session.SetInt32("id", (int)userSaved.id);
+                    HttpContext.Session.SetInt32("id", userSaved.id);
                     return RedirectToAction("Dashboard", "User");
                 }
             } else {

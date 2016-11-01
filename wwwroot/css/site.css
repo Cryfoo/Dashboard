@@ -7,7 +7,7 @@ body {
    margin-top: 20px;
 }
 
-.edit_panels {
+.edit_panels, .messages {
    outline: 1px solid black;
 }
 
@@ -33,4 +33,16 @@ body {
 
 .labels {
    width: 150px;
+}
+
+.msg_block {
+   margin-top: 20px;
+}
+
+.messages {
+   padding: 0px 0px 20px 5px;
+}
+
+.nametag {
+   padding: 0px;
 }
